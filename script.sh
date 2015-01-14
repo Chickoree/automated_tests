@@ -1,20 +1,32 @@
+########        Notes:  ########################################################
+#       Redirecting output from console to logs folder.                        #
+#       Standard Output, STDOUT or 1 or blank, is redirected to /dev/null      #
+#       where it is discarded.                                                 #
+#       Standard Error, STDERR or 2, is redirected to the relevant log file    #
+#                                                                              #
+#       /dev/null 2>>/home/vagrant/logs/command-name.log                       #
+#                                                                              #
+################################################################################
+
+echo "SETUP: Creating Logging directory"
+sudo mkdir /home/vagrant/logs/ 1>/dev/null 2>/dev/null
 echo "SETUP: Adding Jenkins Package Address"
-wget -q -O - https://jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
+wget -q -O - https://jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add - 1>/dev/null 2>/home/vagrant/logs/wget.log
 sudo sh -c 'echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list'
 echo "SETUP: Updating APT-GET"
-sudo apt-get update
-sudo apt-get check
+sudo apt-get update 1>/dev/null 2>/home/vagrant/logs/apt-get.log
+sudo apt-get check 1>/dev/null 2>>/home/vagrant/logs/apt-get.log
 echo "SETUP: Installing pre-reqs"
-sudo apt-get --assume-yes --verbose-versions --quiet install firefox git nodejs jenkins python-pip phantomjs
-sudo apt-get autoclean
+sudo apt-get --assume-yes --verbose-versions install firefox git nodejs jenkins python-pip phantomjs 1>/dev/null 2>>/home/vagrant/logs/apt-get.log
+sudo apt-get autoclean 1>/dev/null 2>>/home/vagrant/logs/apt-get.log
 echo "SETUP: Installing Robot Stuffs"
-sudo pip install Robot-AppEyes simplejson requests
-
+sudo pip install Robot-AppEyes simplejson requests 1>/dev/null 2>>/home/vagrant/logs/app-eyes.log
 echo "SETUP: Downloading Sauce Connect and Extracting"
-sudo rm -r ~/Downloads
-sudo wget -N https://saucelabs.com/downloads/sc-4.3.6-linux.tar.gz -P ~/Downloads
-sudo tar zxvf ~/Downloads/sc-4.3.6-linux.tar.gz -C ~/Downloads
-sudo rm ~/Downloads/sc-4.3.6-linux.tar.gz
+sudo rm -rf /home/vagrant/Downloads/
+sudo wget -N https://saucelabs.com/downloads/sc-4.3.6-linux.tar.gz -P /home/vagrant/Downloads 1>/dev/null 2>>/home/vagrant/logs/wget.log
+sudo tar zxvf /home/vagrant/Downloads/sc-4.3.6-linux.tar.gz -C /home/vagrant/Downloads  1>/dev/null 2>/home/vagrant/logs/tar.log
+sudo rm /home/vagrant/Downloads/sc-4.3.6-linux.tar.gz
+echo "COMPLETED PROVISIONING"
 
 #~/Downloads/sc-4.3.6-linux/bin/sc -u Chickoree -k d61c8e10-8463-43a7-8f87-c096dd42ade7 &
 
