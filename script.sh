@@ -3,8 +3,10 @@ wget -q -O - https://jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add
 sudo sh -c 'echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list'
 echo "SETUP: Updating APT-GET"
 sudo apt-get update
+sudo apt-get check
 echo "SETUP: Installing pre-reqs"
-sudo apt-get install firefox git nodejs jenkins python-pip phantomjs
+sudo apt-get --assume-yes --verbose-versions --quiet install firefox git nodejs jenkins python-pip phantomjs
+sudo apt-get autoclean
 echo "SETUP: Installing Robot Stuffs"
 sudo pip install Robot-AppEyes simplejson requests
 
