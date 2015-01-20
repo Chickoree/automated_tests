@@ -28,9 +28,6 @@ sudo tar zxvf /home/vagrant/Downloads/sc-4.3.6-linux.tar.gz -C /home/vagrant/Dow
 sudo rm /home/vagrant/Downloads/sc-4.3.6-linux.tar.gz
 echo "COMPLETED PROVISIONING"
 
-#~/Downloads/sc-4.3.6-linux/bin/sc -u Chickoree -k d61c8e10-8463-43a7-8f87-c096dd42ade7 &
-
-
 #echo "SETUP: Installing Chrome Drivers"
 # Install unzip
 #sudo apt-get install unzip
